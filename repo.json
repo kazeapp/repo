@@ -1,0 +1,53 @@
+[
+  {
+  "author": "kaze",
+  "icon": "https://9animetv.to/images/favicon.png",
+  "lang": "en",
+  "license": "MIT",
+  "name": "9Anime",
+  "nsfw": "false",
+  "package": "9animetv.to",
+  "type": "anime",
+  "url": "9animetv.to.js",
+  "version": "v0.0.1",
+  "webSite": "https://9animetv.to"
+ },
+ {
+  "author": "kaze",
+  "icon": "https://111.90.151.26/wp-content/uploads/2020/06/cropped-Logo-2-60x60.png",
+  "lang": "hi",
+  "license": "MIT",
+  "name": "FlimyPujab",
+  "nsfw": "false",
+  "package": "flimypujab.com",
+  "type": "movies",
+  "url": "flimypujab.com.js",
+  "version": "v0.0.1",
+  "webSite": "https://111.90.151.26"
+ },
+ {
+  "author": "kaze",
+  "icon": "https://yomovies.media/wp-content/uploads/2023/12/120.jpg",
+  "lang": "hi",
+  "license": "MIT",
+  "name": "YoMovies",
+  "nsfw": "false",
+  "package": "yomovies",
+  "type": "movies",
+  "url": "yomovies.js",
+  "version": "v0.0.1",
+  "webSite": "https://yomovies.media"
+ },
+ {
+  "author": "kaze",
+  "icon": "https://dramacool.pa/images/mobi/logo.png",
+  "lang": "en",
+  "license": "MIT",
+  "name": "DramaCool",
+  "package": "dramacool.pa",
+  "type": "movies",
+  "url": "dramacool.pa.js",
+  "version": "v0.0.2",
+  "webSite": "https://nontan-source-kgw9jch3s-imkryp70n.vercel.app/movies/dramacool"
+ }
+]
