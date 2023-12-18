@@ -24,6 +24,28 @@
   "url": "flimypujab.com.js",
   "version": "v0.0.1",
   "webSite": "https://111.90.151.26"
+ {
+  "author": "kaze",
+  "icon": "https://aniwatch.to/images/android-chrome-512x512.png",
+  "lang": "en",
+  "license": "MIT",
+  "name": "AniWatch",
+  "package": "ani.watch",
+  "type": "anime",
+  "url": "ani.watch.js",
+  "version": "v0.0.1",
+  "webSite": "https://aniwatch.to"
+ }, {
+  "author": "kaze",
+  "icon": "https://kisskh.co/assets/icons/icon-192x192.png",
+  "lang": "all",
+  "license": "MIT",
+  "name": "Kisskh",
+  "package": "kisskh.co",
+  "type": "asian",
+  "url": "kisskh.co.js",
+  "version": "v0.0.1",
+  "webSite": "https://kisskh.co"
  },
  {
   "author": "kaze",
