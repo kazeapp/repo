@@ -29,6 +29,7 @@
     "version":"1.0.0",
     "nsfw":"false",
     "baseUrl":"https://goraku-api.vercel.app/anime/gogoanime",
+    "icon":"https://play-lh.googleusercontent.com/MaGEiAEhNHAJXcXKzqTNgxqRmhuKB1rCUgb15UrN_mWUNRnLpO5T1qja64oRasO7mn0",
     "developer":"kaze",
     "type":"anime"
   }
