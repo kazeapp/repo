@@ -5,6 +5,7 @@
 // @lang         en
 // @icon         https://play-lh.googleusercontent.com/MaGEiAEhNHAJXcXKzqTNgxqRmhuKB1rCUgb15UrN_mWUNRnLpO5T1qja64oRasO7mn0
 // @pkg          gogo.anime
+// @webSite      https://ww4.gogoanime2.org
 // @type         anime
 // @baseUrl      https://goraku-api.vercel.app/anime/gogoanime
 // @nsfw         false

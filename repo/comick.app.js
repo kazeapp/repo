@@ -6,6 +6,7 @@
 // @icon         https://comick.app/static/icons/unicorn-256_maskable.png
 // @pkg          comick.app
 // @type         manga
+// @webSite      https://comick.app
 // @baseUrl      https://comick.app
 // @nsfw         false
 // ==/KazeExtension==

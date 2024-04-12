@@ -6,6 +6,7 @@
 // @icon         https://hianime.to/favicon.ico
 // @pkg          hianime.to
 // @type         anime
+// @webSite      https://hianime.to
 // @baseUrl      https://hianime.to
 // @nsfw         false
 // ==/KazeExtension==
