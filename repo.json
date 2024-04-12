@@ -32,5 +32,16 @@
     "icon":"https://play-lh.googleusercontent.com/MaGEiAEhNHAJXcXKzqTNgxqRmhuKB1rCUgb15UrN_mWUNRnLpO5T1qja64oRasO7mn0",
     "developer":"kaze",
     "type":"anime"
+  },
+  {
+    "name":"FilmyFly",
+    "pkg":"filmyfly.foo",
+    "lang":"hi",
+    "version":"1.0.0",
+    "nsfw":"false",
+    "baseUrl":"https://filmyfly.foo",
+    "icon":"https://image.linkmake.in/images/files/afaa901b76bc48d57a346319423035dd384208.png",
+    "developer":"kaze",
+    "type":"movies"
   }
 ]
