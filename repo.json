@@ -21,5 +21,15 @@
     "icon":"https://comick.app/static/icons/unicorn-256_maskable.png",
     "developer":"kaze",
     "type":"manga"
+  },
+  {
+    "name":"GoGoAnime",
+    "pkg":"gogo.anime",
+    "lang":"en",
+    "version":"1.0.0",
+    "nsfw":"false",
+    "baseUrl":"https://goraku-api.vercel.app/anime/gogoanime",
+    "developer":"kaze",
+    "type":"anime"
   }
 ]
