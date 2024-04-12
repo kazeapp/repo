@@ -1,0 +1,26 @@
+[
+    {
+        "name":"",
+        "pkg":"",
+        "lang":"",
+        "version":"",
+        "nsfw":"",
+        "baseUrl":"",
+        "script":"",
+        "developer":"",
+        "type":""
+      }
+]
+
+
+// ==KazeExtension==
+// @name         Comick
+// @version      1.0.0
+// @developer    kaze
+// @lang         jp
+// @icon         https://hianime.to/favicon.ico
+// @pkg          hianime.to
+// @type         anime
+// @baseUrl      https://hianime.to
+// @nsfw         false
+// ==/KazeExtension==

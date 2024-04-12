@@ -1,88 +1,25 @@
 [
+
   {
-  "author": "kaze",
-  "icon": "https://9animetv.to/images/favicon.png",
-  "lang": "en",
-  "license": "MIT",
-  "name": "9Anime",
-  "nsfw": "false",
-  "package": "9animetv.to",
-  "type": "anime",
-  "url": "9animetv.to.js",
-  "version": "v0.0.1",
-  "webSite": "https://9animetv.to"
- },
- {
-  "author": "kaze",
-  "icon": "https://111.90.151.26/wp-content/uploads/2020/06/cropped-Logo-2-60x60.png",
-  "lang": "hi",
-  "license": "MIT",
-  "name": "FlimyPujab",
-  "nsfw": "false",
-  "package": "flimypujab.com",
-  "type": "movies",
-  "url": "flimypujab.com.js",
-  "version": "v0.0.1",
-  "webSite": "https://111.90.151.26"
- },
- {
-  "author": "kaze",
-  "icon": "https://aniwatch.to/images/android-chrome-512x512.png",
-  "lang": "en",
-  "license": "MIT",
-  "name": "AniWatch",
-  "package": "ani.watch",
-  "type": "anime",
-  "url": "ani.watch.js",
-  "version": "v0.0.1",
-  "webSite": "https://aniwatch.to"
- }, {
-  "author": "kaze",
-  "icon": "https://kisskh.co/assets/icons/icon-192x192.png",
-  "lang": "all",
-  "license": "MIT",
-  "name": "Kisskh",
-  "package": "kisskh.co",
-  "type": "movies",
-  "url": "kisskh.co.js",
-  "version": "v0.0.1",
-  "webSite": "https://kisskh.co"
- },
- {
-  "author": "kaze",
-  "icon": "https://yomovies.media/wp-content/uploads/2023/12/120.jpg",
-  "lang": "hi",
-  "license": "MIT",
-  "name": "YoMovies",
-  "nsfw": "false",
-  "package": "yomovies",
-  "type": "movies",
-  "url": "yomovies.js",
-  "version": "v0.0.1",
-  "webSite": "https://yomovies.media"
- },
-{
-  "author": "kaze",
-  "icon": "https://flixhq.ws/images/logo.png",
-  "lang": "all",
-  "license": "MIT",
-  "name": "Flixhq",
-  "package": "flixhq.to",
-  "type": "movies",
-  "url": "flixhq.to.js",
-  "version": "v0.0.1",
-  "webSite": "https://api-consumet-dki0eyw6n-shirogohan.vercel.app/movies/flixhq"
- },
- {
-  "author": "kaze",
-  "icon": "https://dramacool.pa/images/mobi/logo.png",
-  "lang": "en",
-  "license": "MIT",
-  "name": "DramaCool",
-  "package": "dramacool.pa",
-  "type": "movies",
-  "url": "dramacool.pa.js",
-  "version": "v0.0.2",
-  "webSite": "https://nontan-source-kgw9jch3s-imkryp70n.vercel.app/movies/dramacool"
- }
+    "name":"HiAnime",
+    "pkg":"hianime.to",
+    "lang":"ja",
+    "version":"1.0.0",
+    "nsfw":"false",
+    "baseUrl":"https://hianime.to",
+    "icon":"https://hianime.to/favicon.ico",
+    "developer":"kaze",
+    "type":"anime"
+  },
+  {
+    "name":"Comick",
+    "pkg":"comick.app",
+    "lang":"all",
+    "version":"1.0.0",
+    "nsfw":"false",
+    "baseUrl":"https://comick.app",
+    "icon":"https://comick.app/static/icons/unicorn-256_maskable.png",
+    "developer":"kaze",
+    "type":"manga"
+  }
 ]
