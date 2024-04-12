@@ -37,7 +37,7 @@ export default class extends Extension {
     console.log(url);
     const res = await this.request("", {
       headers: {
-        "Miru-Url": `https://filmyfly.foo${url}`,
+        "Kaze-Url": `https://filmyfly.foo${url}`,
       },
     });
     const title = await this.querySelector(res, "div.colora").text;

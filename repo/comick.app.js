@@ -15,7 +15,7 @@ export default class extends Extension {
   async req(url) {
     return this.request(url, {
       headers: {
-        "Miru-Url": await this.getSetting("comick"),
+        "Kaze-Url": await this.getSetting("comick"),
       },
     });
   }

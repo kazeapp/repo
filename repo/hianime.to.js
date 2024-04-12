@@ -198,7 +198,7 @@ export default class extends Extension {
   async rabbit_stream(embed_id, referer) {
     const encrypted_res = await this.request("", {
       headers: {
-        "Miru-Url": `https://megacloud.tv/embed-2/ajax/e-1/getSources?id=${embed_id}`,
+        "Kaze-Url": `https://megacloud.tv/embed-2/ajax/e-1/getSources?id=${embed_id}`,
         "X-Requested-With": "XMLHttpRequest",
         Referer: `https://megacloud.tv/embed-2/e-1/${embed_id}?k=1`,
         "User-Agent":
