@@ -228,7 +228,7 @@ export default class extends Extension {
   async get_key(cipher) {
     const res = await this.request("", {
       headers: {
-        "Miru-Url":
+        "Kaze-Url":
           "https://megacloud.tv/js/player/a/prod/e1-player.min.js?v=1699711377",
       },
     });
