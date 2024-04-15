@@ -115,6 +115,19 @@
   "webSite": "https://kisskh.co"
  },
  {
+  "baseUrl": "https://yomovies.town",
+  "developer": "kaze",
+  "icon": "https://yomovies.town/wp-content/uploads/2023/12/120.jpg",
+  "lang": "hi",
+  "name": "YoMovies",
+  "nsfw": "false",
+  "pkg": "yomovies",
+  "type": "movies",
+  "url": "yomovies.js",
+  "version": "1.0.0",
+  "webSite": "https://yomovies.town"
+ },
+ {
   "baseUrl": "https://yugenanime.tv",
   "developer": "appdevelpo",
   "icon": "https://yugenanime.tv/static/img/favicon-32x32.png",
@@ -126,5 +139,17 @@
   "url": "yugenanime.tv.js",
   "version": "1.0.0",
   "webSite": "https://yugenanime.tv"
+ },
+ {
+  "baseUrl": "https://zscans.com",
+  "developer": "kaze",
+  "icon": "https://zscans.com/favicon.ico",
+  "lang": "en",
+  "name": "ZeroScans",
+  "pkg": "zeroscans.com",
+  "type": "manga",
+  "url": "zeroscans.com.js",
+  "version": "1.0.0",
+  "webSite": "https://zscans.com"
  }
 ]
