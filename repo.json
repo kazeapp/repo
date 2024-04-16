@@ -64,6 +64,18 @@
   "webSite": "https://111.90.151.26/"
  },
  {
+  "baseUrl": "https://api-consumet-dki0eyw6n-shirogohan.vercel.app/movies/flixhq",
+  "developer": "kaze",
+  "icon": "https://flixhq.ws/images/logo.png",
+  "lang": "all",
+  "name": "Flixhq",
+  "pkg": "flixhq.to",
+  "type": "movies",
+  "url": "flixhq.to.js",
+  "version": "1.0.0",
+  "webSite": "https://api-consumet-dki0eyw6n-shirogohan.vercel.app/movies/flixhq"
+ },
+ {
   "baseUrl": "https://goraku-api.vercel.app/anime/gogoanime",
   "developer": "kaze",
   "icon": "https://play-lh.googleusercontent.com/MaGEiAEhNHAJXcXKzqTNgxqRmhuKB1rCUgb15UrN_mWUNRnLpO5T1qja64oRasO7mn0",
