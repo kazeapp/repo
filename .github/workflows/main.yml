@@ -23,5 +23,5 @@ jobs:
       - name: Push new repo.json
         uses: mikeal/publish-to-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           BRANCH_NAME: "main"
