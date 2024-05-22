@@ -20,8 +20,13 @@ jobs:
         run: |
           dart run generator.dart
 
-      - name: Push new repo.json
-        uses: mikeal/publish-to-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-          BRANCH_NAME: "main"
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git checkout main
+          git add anime_index.json
+          git add manga_index.json
+          git add movie_index.json
+          git commit -m "Update extensions"
+          git push origin main --force
