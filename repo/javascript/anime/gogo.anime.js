@@ -1,20 +1,20 @@
 const extensionMetaInfo = [
   {
-    name: "GoGoAnime",
-    lang: "en",
-    author: "Kaze",
-    baseUrl: "https://ww4.gogoanime2.org",
-    apiUrl: "https://goraku-api.vercel.app/anime/gogoanime",
-    iconUrl:
+    "name": "GoGoAnime",
+    "lang": "en",
+    "author": "Kaze",
+    "baseUrl": "https://ww4.gogoanime2.org",
+    "apiUrl": "https://goraku-api.vercel.app/anime/gogoanime",
+    "iconUrl":
       "https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/en.gogoanime.png",
-    sourceType: "single",
-    extensionType: 0,
-    isNsfw: false,
-    version: "1.0.0",
-    dateFormat: "",
-    dateFormatLocale: "",
-    pkgPath: "anime/gogo.anime.js",
-  },
+    "sourceType": "single",
+    "extensionType": 0,
+    "isNsfw": false,
+    "version": "1.0.0",
+    "dateFormat": "",
+    "dateFormatLocale": "",
+    "pkgPath": "anime/gogo.anime.js"
+  }
 ];
 
 class DefaultExtension extends KProvider {
