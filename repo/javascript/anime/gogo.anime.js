@@ -37,7 +37,7 @@ class DefaultExtension extends KProvider {
       });
     }
     return {
-      list: manga,
+      list: anime,
       hasNextPage: hasNext,
     };
   }
