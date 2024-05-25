@@ -1,26 +1,26 @@
 const extensionMetaInfo = [
   {
-    "name": "AllAnime",
-    "lang": "en",
-    "author": "Kaze",
-    "baseUrl": "https://allanime.to",
-    "apiUrl": "https://api.allanime.day/api",
-    "iconUrl":
+    name: "AllAnime",
+    lang: "en",
+    author: "Kaze",
+    baseUrl: "https://allanime.to",
+    apiUrl: "https://api.allanime.day/api",
+    iconUrl:
       "https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/en.allanime.png",
-    "sourceType": "single",
-    "extensionType": 0,
-    "isNsfw": false,
-    "version": "0.0.1",
-    "dateFormat": "",
-    "dateFormatLocale": "",
-    "pkgPath": "anime/allanime.js"
-  }
+    sourceType: "single",
+    extensionType: 0,
+    isNsfw: false,
+    version: "0.0.1",
+    dateFormat: "",
+    dateFormatLocale: "",
+    pkgPath: "anime/allanime.js",
+  },
 ];
 
 class DefaultExtension extends KProvider {
   async request(body) {
-    const apiUrl = this.source.apiUrl;
-    const baseUrl = this.source.baseUrl;
+    const apiUrl = this.extension.apiUrl;
+    const baseUrl = this.extension.baseUrl;
     return (await new Client().get(apiUrl + body, { Referer: baseUrl })).body;
   }
 
@@ -172,7 +172,7 @@ class DefaultExtension extends KProvider {
     }
   }
   async getVideoList(url) {
-    const baseUrl = this.source.baseUrl;
+    const baseUrl = this.extension.baseUrl;
     const preferences = new SharedPreferences();
     const subPref = preferences.get("preferred_sub");
     const ep = JSON.parse(url);

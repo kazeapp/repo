@@ -1,31 +1,31 @@
 const extensionMetaInfo = [
   {
-    "name": "GoGoAnime",
-    "lang": "en",
-    "author": "Kaze",
-    "baseUrl": "https://ww4.gogoanime2.org",
-    "apiUrl": "https://goraku-api.vercel.app/anime/gogoanime",
-    "iconUrl":
+    name: "GoGoAnime",
+    lang: "en",
+    author: "Kaze",
+    baseUrl: "https://ww4.gogoanime2.org",
+    apiUrl: "https://goraku-api.vercel.app/anime/gogoanime",
+    iconUrl:
       "https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/en.gogoanime.png",
-    "sourceType": "single",
-    "extensionType": 0,
-    "isNsfw": false,
-    "version": "1.0.0",
-    "dateFormat": "",
-    "dateFormatLocale": "",
-    "pkgPath": "anime/gogo.anime.js"
-  }
+    sourceType: "single",
+    extensionType: 0,
+    isNsfw: false,
+    version: "1.0.0",
+    dateFormat: "",
+    dateFormatLocale: "",
+    pkgPath: "anime/gogo.anime.js",
+  },
 ];
 
 class DefaultExtension extends KProvider {
   async request(body) {
-    const apiUrl = this.source.apiUrl;
-    const baseUrl = this.source.baseUrl;
+    const apiUrl = this.extension.apiUrl;
+    const baseUrl = this.extension.baseUrl;
     return (await new Client().get(apiUrl + body, { Referer: baseUrl })).body;
   }
 
   async getAnime(url) {
-    const res = await new Client().get(this.source.apiUrl + url);
+    const res = await new Client().get(this.extension.apiUrl + url);
     const datas = JSON.parse(res.body);
     const anime = [];
     const hasNext = datas["hasNextPage"];
@@ -55,7 +55,7 @@ class DefaultExtension extends KProvider {
   }
 
   async getDetail(url) {
-    const res = await new Client().get(this.source.apiUrl + `/info/${url}`);
+    const res = await new Client().get(this.extension.apiUrl + `/info/${url}`);
     const data = JSON.parse(res.body);
     const title = this.stringUTF8(data["title"]);
     const cover = data["image"];
