@@ -31,7 +31,7 @@ class DefaultExtension extends KProvider {
     const hasNext = datas["hasNextPage"];
     for (const data of datas["results"]) {
       anime.push({
-        name: this.stringUTF8(data["title"]),
+        name: data["title"],
         imageUrl: data["image"],
         link: data["url"],
       });
@@ -57,12 +57,12 @@ class DefaultExtension extends KProvider {
   async getDetail(url) {
     const res = await new Client().get(this.extension.apiUrl + `/info/${url}`);
     const data = JSON.parse(res.body);
-    const title = this.stringUTF8(data["title"]);
+    const title = data["title"];
     const cover = data["image"];
-    const desc = this.stringUTF8(data["description"]);
+    const desc = data["description"];
     const author = "";
     const status = data["status"];
-    const genres = data["genres"].map((e) => this.stringUTF8(e["name"]));
+    const genres = data["genres"].map((e) => e["name"]);
     const chapters = [];
     chapters.reverse();
     return {
