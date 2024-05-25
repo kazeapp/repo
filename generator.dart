@@ -12,8 +12,15 @@ void main() {
   final movieJson = genMovie(
       jsExtensions.where((element) => element.extensionType == 2).toList());
 
-  final jsonString =
-      jsonEncode({"anime": animeJson, "manga": mangaJson, "movie": movieJson});
+  List<Map<String, dynamic>> extensionsList = [
+    ...animeJson,
+    ...mangaJson,
+    ...movieJson
+  ];
+  // final jsonString =
+  //     jsonEncode({"anime": animeJson, "manga": mangaJson, "movie": movieJson});
+
+  final jsonString = jsonEncode(extensionsList);
   final file = File('index.json');
   file.writeAsStringSync(jsonString);
 }
@@ -24,7 +31,7 @@ List<Map<String, dynamic>> genAnime(List<Extension> jsAnimesourceList) {
   animeSources.addAll(jsAnimesourceList);
   final List<Map<String, dynamic>> jsonList =
       animeSources.map((source) => source.toJson()).toList();
-  final jsonString = jsonEncode(jsonList);
+  // final jsonString = jsonEncode(jsonList);
 
   // final file = File('anime_index.json');
   // file.writeAsStringSync(jsonString);
@@ -38,7 +45,7 @@ List<Map<String, dynamic>> genManga(List<Extension> jsMangasourceList) {
   mangaSources.addAll(jsMangasourceList);
   final List<Map<String, dynamic>> jsonList =
       mangaSources.map((source) => source.toJson()).toList();
-  final jsonString = jsonEncode(jsonList);
+  // final jsonString = jsonEncode(jsonList);
   return jsonList;
 }
 
@@ -48,7 +55,7 @@ List<Map<String, dynamic>> genMovie(List<Extension> jsMoviesourceList) {
   movieSources.addAll(jsMoviesourceList);
   final List<Map<String, dynamic>> jsonList =
       movieSources.map((source) => source.toJson()).toList();
-  final jsonString = jsonEncode(jsonList);
+  // final jsonString = jsonEncode(jsonList);
   return jsonList;
 }
 
