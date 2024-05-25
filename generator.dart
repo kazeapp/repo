@@ -5,29 +5,20 @@ import 'model/extension.dart';
 
 void main() {
   final jsExtensions = _searchJsExtensions(Directory("repo/javascript"));
-  genAnime(
+  final animeJson = genAnime(
       jsExtensions.where((element) => element.extensionType == 0).toList());
-  genManga(
+  final mangaJson = genManga(
       jsExtensions.where((element) => element.extensionType == 1).toList());
-  genMovie(
+  final movieJson = genMovie(
       jsExtensions.where((element) => element.extensionType == 2).toList());
-}
 
-void genManga(List<Extension> jsMangasourceList) {
-  List<Extension> mangaSources = [];
-  // mangaSources.addAll(dartMangasourceList);
-  mangaSources.addAll(jsMangasourceList);
-  final List<Map<String, dynamic>> jsonList =
-      mangaSources.map((source) => source.toJson()).toList();
-  final jsonString = jsonEncode(jsonList);
-
-  final file = File('manga_index.json');
+  final jsonString =
+      jsonEncode({"anime": animeJson, "manga": mangaJson, "movie": movieJson});
+  final file = File('index.json');
   file.writeAsStringSync(jsonString);
-
-  log('JSON file created: ${file.path}');
 }
 
-void genAnime(List<Extension> jsAnimesourceList) {
+List<Map<String, dynamic>> genAnime(List<Extension> jsAnimesourceList) {
   List<Extension> animeSources = [];
   // animeSources.addAll(dartAnimesourceList);
   animeSources.addAll(jsAnimesourceList);
@@ -35,24 +26,30 @@ void genAnime(List<Extension> jsAnimesourceList) {
       animeSources.map((source) => source.toJson()).toList();
   final jsonString = jsonEncode(jsonList);
 
-  final file = File('anime_index.json');
-  file.writeAsStringSync(jsonString);
-
-  log('JSON file created: ${file.path}');
+  // final file = File('anime_index.json');
+  // file.writeAsStringSync(jsonString);
+  // log('JSON file created: ${file.path}');
+  return jsonList;
 }
 
-void genMovie(List<Extension> jsMoviesourceList) {
+List<Map<String, dynamic>> genManga(List<Extension> jsMangasourceList) {
+  List<Extension> mangaSources = [];
+  // mangaSources.addAll(dartMangasourceList);
+  mangaSources.addAll(jsMangasourceList);
+  final List<Map<String, dynamic>> jsonList =
+      mangaSources.map((source) => source.toJson()).toList();
+  final jsonString = jsonEncode(jsonList);
+  return jsonList;
+}
+
+List<Map<String, dynamic>> genMovie(List<Extension> jsMoviesourceList) {
   List<Extension> movieSources = [];
   // movieSources.addAll(dartMoviesourceList);
   movieSources.addAll(jsMoviesourceList);
   final List<Map<String, dynamic>> jsonList =
       movieSources.map((source) => source.toJson()).toList();
   final jsonString = jsonEncode(jsonList);
-
-  final file = File('movie_index.json');
-  file.writeAsStringSync(jsonString);
-
-  log('JSON file created: ${file.path}');
+  return jsonList;
 }
 
 List<Extension> _searchJsExtensions(Directory dir) {
