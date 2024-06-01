@@ -15,7 +15,7 @@ const extensionMetaInfo = [
     "dateFormat": "",
     "dateFormatLocale": "",
     "pkgPath": "anime/gogo.anime.js",
-  },
+  }
 ];
 
 class DefaultExtension extends KProvider {
