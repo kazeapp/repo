@@ -84,7 +84,7 @@ class DefaultExtension extends KProvider {
           ? anime.coverImage.medium
           : "";
 
-      const link = item.id.toString();
+      const link = anime.id.toString();
       list.push({ name, imageUrl, link });
     }
     return {
