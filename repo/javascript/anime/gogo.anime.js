@@ -149,7 +149,7 @@ class DefaultExtension extends KProvider {
     const episodes = epData.episodes.map((item) => ({
       name: item.title != null ? item.title : `Episode ${item.number}`,
       url: item.id != null ? item.id : "",
-      scanlator: item.isDub ? "sub" : "dub",
+      scanlator: item.isDub ? "dub" : "sub",
     }));
     return {
       name: title,
