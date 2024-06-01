@@ -1,20 +1,21 @@
+// prettier-ignore
 const extensionMetaInfo = [
   {
-    name: "AllAnime",
-    lang: "en",
-    author: "Kaze",
-    baseUrl: "https://allanime.to",
-    apiUrl: "https://api.allanime.day/api",
-    iconUrl:
+    "name": "AllAnime",
+    "lang": "en",
+    "author": "Kaze",
+    "baseUrl": "https://allanime.to",
+    "apiUrl": "https://api.allanime.day/api",
+    "iconUrl":
       "https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/en.allanime.png",
-    sourceType: "single",
-    extensionType: 0,
-    isNsfw: false,
-    version: "0.0.1",
-    dateFormat: "",
-    dateFormatLocale: "",
-    pkgPath: "anime/allanime.js",
-  },
+    "sourceType": "single",
+    "extensionType": 0,
+    "isNsfw": false,
+    "version": "0.0.1",
+    "dateFormat": "",
+    "dateFormatLocale": "",
+    "pkgPath": "anime/allanime.js"
+  }
 ];
 
 class DefaultExtension extends KProvider {
