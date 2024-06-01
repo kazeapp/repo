@@ -108,19 +108,23 @@ class DefaultExtension extends KProvider {
   async getDetail(url) {
     const res = await new Client().get(this.extension.apiUrl + `/info/${url}`);
     const data = JSON.parse(res.body);
-    const title =
-      item.title.romaji != null
-        ? item.title.romaji
-        : item.title.english != null
-        ? item.title.english
-        : "";
+    const preferences = new SharedPreferences();
+    const titleStyle = preferences.get("preferred_title_style");
+    let title;
+    if (titleStyle === "romaji") {
+      title = anime.title.romaji;
+    } else if (titleStyle === "eng") {
+      title = anime.title.english || anime.title.romaji;
+    } else {
+      title = anime.title.nativeName || anime.title.romaji;
+    }
     const cover =
-      item.coverImage.extraLarge != null
-        ? item.coverImage.extraLarge
-        : item.coverImage.large != null
-        ? item.coverImage.large
-        : item.coverImage.medium != null
-        ? item.coverImage.medium
+      data.coverImage.extraLarge != null
+        ? data.coverImage.extraLarge
+        : data.coverImage.large != null
+        ? data.coverImage.large
+        : data.coverImage.medium != null
+        ? data.coverImage.medium
         : "";
     let description = "";
     const desc = description.concat(
