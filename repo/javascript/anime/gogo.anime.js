@@ -68,7 +68,7 @@ class DefaultExtension extends KProvider {
     for (const anime of data.results) {
       let title;
       if (titleStyle === "romaji") {
-        title = anime.title.romaji;
+        title = anime.title.romaji || anime.title.userPreferred;
       } else if (titleStyle === "eng") {
         title = anime.title.english || anime.title.romaji;
       } else {
@@ -107,12 +107,16 @@ class DefaultExtension extends KProvider {
 
   async getDetail(url) {
     const res = await new Client().get(this.extension.apiUrl + `/info/${url}`);
+    const epRes = await new Client().get(
+      this.extension.apiUrl + `/episode/${url}`
+    );
     const data = JSON.parse(res.body);
+    const epData = JSON.parse(epRes.body);
     const preferences = new SharedPreferences();
     const titleStyle = preferences.get("preferred_title_style");
     let title;
     if (titleStyle === "romaji") {
-      title = data.title.romaji;
+      title = data.title.romaji || data.title.userPreferred;
     } else if (titleStyle === "eng") {
       title = data.title.english || data.title.romaji;
     } else {
@@ -142,11 +146,7 @@ class DefaultExtension extends KProvider {
     const status = this.parseStatus(data.status);
     const genres = data.genres.map((e) => e);
 
-    const epRes = await new Client().get(
-      this.extension.apiUrl + `/episode/${url}`
-    );
-
-    const episodes = epRes.episodes.map((item) => ({
+    const episodes = epData.episodes.map((item) => ({
       name: item.title != null ? item.title : `Episode ${item.number}`,
       url: item.id != null ? item.id : "",
       scanlator: item.isDub ? "sub" : "dub",
