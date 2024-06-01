@@ -14,7 +14,7 @@ const extensionMetaInfo = [
     "version": "1.1.0",
     "dateFormat": "",
     "dateFormatLocale": "",
-    "pkgPath": "anime/gogo.anime.js",
+    "pkgPath": "anime/gogo.anime.js"
   }
 ];
 
