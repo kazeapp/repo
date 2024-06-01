@@ -274,7 +274,7 @@ class DefaultExtension extends KProvider {
       return str;
     }
   }
-  getSourcePreferences() {
+  getExtensionPreferences() {
     return [
       {
         key: "preferred_title_style",
