@@ -1,19 +1,20 @@
+// prettier-ignore
 const extensionMetaInfo = [
   {
-    name: "GoGoAnime",
-    lang: "en",
-    author: "Kaze",
-    baseUrl: "https://amvstr.me/",
-    apiUrl: "https://api.amvstr.me/api/v2",
-    iconUrl:
+    "name": "GoGoAnime",
+    "lang": "en",
+    "author": "Kaze",
+    "baseUrl": "https://amvstr.me/",
+    "apiUrl": "https://api.amvstr.me/api/v2",
+    "iconUrl":
       "https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/en.gogoanime.png",
-    sourceType: "single",
-    extensionType: 0,
-    isNsfw: false,
-    version: "1.0.0",
-    dateFormat: "",
-    dateFormatLocale: "",
-    pkgPath: "anime/gogo.anime.js",
+    "sourceType": "single",
+    "extensionType": 0,
+    "isNsfw": false,
+    "version": "1.1.0",
+    "dateFormat": "",
+    "dateFormatLocale": "",
+    "pkgPath": "anime/gogo.anime.js",
   },
 ];
 
