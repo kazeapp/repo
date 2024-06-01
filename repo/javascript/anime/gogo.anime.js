@@ -112,11 +112,11 @@ class DefaultExtension extends KProvider {
     const titleStyle = preferences.get("preferred_title_style");
     let title;
     if (titleStyle === "romaji") {
-      title = anime.title.romaji;
+      title = data.title.romaji;
     } else if (titleStyle === "eng") {
-      title = anime.title.english || anime.title.romaji;
+      title = data.title.english || data.title.romaji;
     } else {
-      title = anime.title.nativeName || anime.title.romaji;
+      title = data.title.nativeName || data.title.romaji;
     }
     const cover =
       data.coverImage.extraLarge != null
