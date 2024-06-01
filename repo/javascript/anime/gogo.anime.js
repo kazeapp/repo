@@ -139,7 +139,7 @@ class DefaultExtension extends KProvider {
       .slice(0, 2)
       .join(":::");
     const author = studioNames;
-    const status = parseStatus(data.status);
+    const status = this.parseStatus(data.status);
     const genres = data.genres.map((e) => e);
 
     const epRes = await new Client().get(
