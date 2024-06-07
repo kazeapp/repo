@@ -8,7 +8,7 @@ const extensionMetaInfo = [
       "apiUrl": "https://api.mangadex.org",
       "iconUrl":
         "https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/mangadex.png",
-      "sourceType": "mangadex",
+      "sourceType": "single",
       "extensionType": 1,
       "isNsfw": true,
       "version": "1.3.0",
