@@ -12,13 +12,13 @@ const extensionMetaInfo = [
       "extensionType": 1,
       "isNsfw": true,
       "version": "1.3.0",
-      "dateFormat": `yyyy-MM-dd'T'HH:mm:ss+SSS`,
+      "dateFormat": "",
       "dateFormatLocale": "en_Us",
       "pkgPath": "manga/mangadex.js"
     }
   ];
 
-  
+
 class DefaultExtension extends KProvider {
   async request(body) {
     const apiUrl = this.source.apiUrl;
