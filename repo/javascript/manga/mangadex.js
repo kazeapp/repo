@@ -4,16 +4,16 @@ const extensionMetaInfo = [
       "name": "MangaDex",
       "lang": "en",
       "author": "Kaze",
-      "baseUrl": "https://mangadex.org",
+      "baseUrl": "https://mangadex.org/",
       "apiUrl": "https://api.mangadex.org",
       "iconUrl":
         "https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/mangadex.png",
       "sourceType": "single",
-      "extensionType": 1,
-      "isNsfw": true,
+      "extensionType": 0,
+      "isNsfw": false,
       "version": "1.3.0",
-      "dateFormat": "yyyy-MM-dd'T'HH:mm:ss+SSS",
-      "dateFormatLocale": "en_Us",
+      "dateFormat": "",
+      "dateFormatLocale": "",
       "pkgPath": "manga/mangadex.js"
     }
   ];
