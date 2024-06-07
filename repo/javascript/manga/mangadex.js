@@ -1,5 +1,4 @@
 // prettier-ignore
-// /manga/e78a489b-6632-4d61-b00b-5206f5b8b22b
 const extensionMetaInfo = [
     {
       "name": "MangaDex",
@@ -12,7 +11,7 @@ const extensionMetaInfo = [
       "sourceType": "mangadex",
       "extensionType": 1,
       "isNsfw": true,
-      "version": "0.1.0",
+      "version": "1.3.0",
       "dateFormat": "yyyy-MM-dd'T'HH:mm:ss+SSS",
       "dateFormatLocale": "en_Us",
       "pkgPath": "manga/mangadex.js"
@@ -330,66 +329,6 @@ class DefaultExtension extends KProvider {
           summary:
             "Include alternative titles of the manga at the end of the description",
           value: false,
-        },
-      },
-      {
-        key: "content_rating",
-        multiSelectListPreference: {
-          title: "Content Rating",
-          summary:
-            "Enable/Disable content rating to be used to filter out the content",
-          entries: ["safe", "suggestive", "erotica", "pornographic"],
-          entryValues: [
-            "contentRating[]=safe",
-            "contentRating[]=suggestive",
-            "contentRating[]=erotica",
-            "contentRating[]=pornographic",
-          ],
-          values: ["contentRating[]=safe", "contentRating[]=suggestive"],
-        },
-      },
-    ];
-  }
-
-  getExtensionPreferences() {
-    return [
-      {
-        key: "cover_quality",
-        listPreference: {
-          title: "Cover Quality",
-          summary: "",
-          valueIndex: 0,
-          entries: ["Original", "Medium", "Low"],
-          entryValues: ["", ".512.jpg", ".256.jpg"],
-        },
-      },
-      {
-        key: "alternative_title_in_description",
-        switchPreferenceCompat: {
-          title: "Alternative titles in description",
-          summary:
-            "Include alternative titles of the manga at the end of the description",
-          value: false,
-        },
-      },
-      {
-        key: "lang",
-        listPreference: {
-          title: "Language",
-          summary: "",
-          valueIndex: 0,
-          entries: [
-            "English",
-            "繁體中文",
-            "日本語",
-            "한국의",
-            "Melayu",
-            "ไทย",
-            "Deutsch",
-            "Français",
-            "Tiếng Việt",
-          ],
-          entryValues: ["en", "zh", "ja", "ko", "ms", "th", "de", "fr", "vi"],
         },
       },
       {
