@@ -18,6 +18,7 @@ const extensionMetaInfo = [
     }
   ];
 
+  
 class DefaultExtension extends KProvider {
   async request(body) {
     const apiUrl = this.source.apiUrl;
