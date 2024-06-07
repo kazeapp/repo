@@ -13,7 +13,7 @@ const extensionMetaInfo = [
       "isNsfw": true,
       "version": "1.3.0",
       "dateFormat": "",
-      "dateFormatLocale": "",
+      "dateFormatLocale": "en_Us",
       "pkgPath": "manga/mangadex.js"
     }
   ];
