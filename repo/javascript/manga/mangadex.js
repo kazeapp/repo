@@ -10,7 +10,7 @@ const extensionMetaInfo = [
         "https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/mangadex.png",
       "sourceType": "single",
       "extensionType": 1,
-      "isNsfw": false,
+      "isNsfw": true,
       "version": "1.3.0",
       "dateFormat": "",
       "dateFormatLocale": "",
