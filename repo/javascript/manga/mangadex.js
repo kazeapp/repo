@@ -12,7 +12,7 @@ const extensionMetaInfo = [
       "extensionType": 1,
       "isNsfw": true,
       "version": "1.3.0",
-      "dateFormat": "yyyy-MM-dd'T'HH:mm:ss.SSS",
+      "dateFormat": `yyyy-MM-dd'T'HH:mm:ss+SSS`,
       "dateFormatLocale": "en_Us",
       "pkgPath": "manga/mangadex.js"
     }
