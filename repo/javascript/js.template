@@ -1,0 +1,61 @@
+// prettier-ignore
+const extensionMetaInfo = [
+    {
+      "name": "${extension.name}",
+      "lang": "${extension.lang}",
+      "author": "Kaze",
+      "baseUrl": "${extension.baseUrl}",
+      "apiUrl": "${extension.apiUrl}",
+      "iconUrl":"${extension.iconUrl}",
+      "sourceType": "${extension.sourceType}",,
+      "extensionType": ${extension.extensionType.index},
+      "isNsfw": ${extension.isNsfw},
+      "version": "${extension.version}",
+      "dateFormat": "",
+      "dateFormatLocale": "",
+      "pkgPath": ""
+    }
+  ];
+  
+  class DefaultExtension extends KProvider {
+
+    async request(body) {
+        const apiUrl = this.source.apiUrl;
+        const baseUrl = this.source.baseUrl;
+        return (await new Client().get(apiUrl + body, { Referer: baseUrl })).body;
+      }
+
+      supportsLatest() {
+            return true;
+      }
+      
+      getHeaders(url) {
+          throw new Error("getHeaders not implemented");
+      }
+      async getPopular(page) {
+          throw new Error("getPopular not implemented");
+      }
+      async getLatestUpdates(page) {
+          throw new Error("getLatestUpdates not implemented");
+      }
+      async search(query, page, filters) {
+          throw new Error("search not implemented");
+      }
+      async getDetail(url) {
+          throw new Error("getDetail not implemented");
+      }
+      // For anime episode video list
+      async getVideoList(url) {
+          throw new Error("getVideoList not implemented");
+      }
+      // For manga chapter pages
+      async getPageList() {
+          throw new Error("getPageList not implemented");
+      }
+      getFilterList() {
+          throw new Error("getFilterList not implemented");
+      }
+      getExtensionPreferences() {
+          throw new Error("getExtensionPreferences not implemented");
+      }
+  }

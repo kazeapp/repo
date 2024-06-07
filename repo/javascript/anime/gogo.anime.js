@@ -44,6 +44,10 @@ class DefaultExtension extends KProvider {
     ];
   }
 
+  supportsLatest() {
+    return true;
+  }
+
   async request(body) {
     const preferences = new SharedPreferences();
     const userApiUrl = preferences.get("api_url");
