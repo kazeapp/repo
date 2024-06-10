@@ -20,7 +20,7 @@ const extensionMetaInfo = [
 
 class DefaultExtension extends KProvider {
   async request(url) {
-    const apiUrl = this.extension.apiUrl;
+    const apiUrl = this.apiUrl;
     const baseUrl = this.baseUrl;
     return (await new Client().get(apiUrl + url, { Referer: baseUrl })).body;
   }
@@ -29,6 +29,10 @@ class DefaultExtension extends KProvider {
     const preferences = new SharedPreferences();
     const baseUrl = preferences.get("preferred_domain");
     return baseUrl || this.extension.baseUrl;
+  }
+
+  get apiUrl() {
+    return `${this.baseUrl}/api`;
   }
 
   siteConfig() {
@@ -99,7 +103,7 @@ class DefaultExtension extends KProvider {
     }
   }
   async search(query, page, filters) {
-    const apiUrl = this.extension.apiUrl;
+    const apiUrl = this.apiUrl;
     const res = (await new Client().get(`${apiUrl}?m=search&l=8&q=${query}`))
       .body;
     const isDDos = this.checkIfDDos(res);
@@ -140,7 +144,7 @@ class DefaultExtension extends KProvider {
       const nameData = this.substringAfterLast(url, "&name=");
       const session = await this.getSession(nameData, id);
       const baseUrl = this.baseUrl;
-      const apiUrl = this.extension.apiUrl;
+      const apiUrl = this.apiUrl;
       const res = (
         await new Client().get(`${baseUrl}/anime/${session}?anime_id=${id}`)
       ).body;
