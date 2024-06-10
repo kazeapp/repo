@@ -36,7 +36,7 @@ class DefaultExtension extends KProvider {
   }
 
   async getPopular(page) {
-    throw new Error("getPopular not implemented");
+    return await this.getLatestUpdates(page);
   }
 
   checkIfDDos(body) {
@@ -74,6 +74,7 @@ class DefaultExtension extends KProvider {
       return {
         list: list,
         hasNextPage: hasNext,
+        success: true,
       };
     } catch (e) {
       const anime = [
@@ -83,11 +84,41 @@ class DefaultExtension extends KProvider {
           cover: null,
         },
       ];
-      return { list: anime, hasNextPage: false };
+      return {
+        list: anime,
+        hasNextPage: false,
+        success: false,
+        msg: "Please use webview to enter the website to bypass DDoS Protection then close the webview window.",
+      };
     }
   }
   async search(query, page, filters) {
-    throw new Error("search not implemented");
+    const apiUrl = this.extension.apiUrl;
+    const res = (await new Client().get(`${apiUrl}?m=search&l=8&q=${query}`))
+      .body;
+    const isDDos = this.checkIfDDos(res);
+    if (!isDDos) {
+      const jsonResult = JSON.parse(res);
+      const animeList = [];
+      for (const item of jsonResult.data) {
+        const name = item.title;
+        const imageUrl = item.poster;
+        const link = `/anime/?anime_id=${item.id}&name=${item.title}`;
+        animeList.push({ name, imageUrl, link });
+      }
+      return {
+        list: animeList,
+        hasNextPage: false,
+        success: true,
+      };
+    } else {
+      return {
+        list: [],
+        hasNextPage: false,
+        success: false,
+        msg: "Please use webview to enter the website to bypass DDoS Protection then close the webview window.",
+      };
+    }
   }
   async getDetail(url) {
     const statusList = [{ "Currently Airing": 0, "Finished Airing": 1 }];
@@ -141,16 +172,21 @@ class DefaultExtension extends KProvider {
 
       //   const chapters = episodes;
       return {
-        name,
-        imageUrl,
-        description,
-        author,
-        status,
-        genre,
-        episodes,
+        name: name,
+        imageUrl: imageUrl,
+        description: description,
+        author: author,
+        status: status,
+        genre: genre,
+        episodes: episodes,
+        success: true,
       };
     } else {
       // DDos Triggered
+      return {
+        success: false,
+        msg: "Please use webview to enter the website to bypass DDoS Protection then close the webview window.",
+      };
     }
   }
 
