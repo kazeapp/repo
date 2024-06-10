@@ -21,8 +21,14 @@ const extensionMetaInfo = [
 class DefaultExtension extends KProvider {
   async request(url) {
     const apiUrl = this.extension.apiUrl;
-    const baseUrl = this.extension.baseUrl;
+    const baseUrl = this.baseUrl;
     return (await new Client().get(apiUrl + url, { Referer: baseUrl })).body;
+  }
+
+  get baseUrl() {
+    const preferences = new SharedPreferences();
+    const baseUrl = preferences.get("preferred_domain");
+    return baseUrl || this.extension.baseUrl;
   }
 
   siteConfig() {
@@ -31,7 +37,7 @@ class DefaultExtension extends KProvider {
 
   getHeaders(url) {
     return {
-      Referer: this.extension.baseUrl,
+      Referer: this.baseUrl,
     };
   }
 
@@ -133,7 +139,7 @@ class DefaultExtension extends KProvider {
       );
       const nameData = this.substringAfterLast(url, "&name=");
       const session = await this.getSession(nameData, id);
-      const baseUrl = this.extension.baseUrl;
+      const baseUrl = this.baseUrl;
       const apiUrl = this.extension.apiUrl;
       const res = (
         await new Client().get(`${baseUrl}/anime/${session}?anime_id=${id}`)
@@ -246,6 +252,39 @@ class DefaultExtension extends KProvider {
     throw new Error("getFilterList not implemented");
   }
   getExtensionPreferences() {
-    throw new Error("getExtensionPreferences not implemented");
+    return [
+      {
+        key: "preferred_domain",
+        listPreference: {
+          title: "Change Domain",
+          summary: "",
+          valueIndex: 0,
+          entries: ["animepahe.ru", "animepahe.com", "animepahe.org"],
+          entryValues: [
+            "https://animepahe.ru",
+            "https://animepahe.com",
+            "https://animepahe.org",
+          ],
+        },
+      },
+      {
+        key: "preffered_link_type",
+        switchPreferenceCompat: {
+          title: "Use HLS links",
+          summary: "Enable this if you are having Cloudflare issues.",
+          value: false,
+        },
+      },
+      {
+        key: "preferred_quality",
+        listPreference: {
+          title: "Preferred Quality",
+          summary: "",
+          valueIndex: 0,
+          entries: ["1080p", "720p", "360p"],
+          entryValues: ["1080", "720", "360"],
+        },
+      },
+    ];
   }
 }
