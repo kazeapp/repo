@@ -52,7 +52,7 @@ class DefaultExtension extends KProvider {
   checkIfDDos(body) {
     const document = new Document(body);
     const isDdos = document.selectFirst("title").text;
-    console.log(isDdos);
+    // console.log(isDdos);
     if (isDdos === "DDoS-Guard") {
       return true;
     } else {
@@ -61,143 +61,100 @@ class DefaultExtension extends KProvider {
   }
 
   async getLatestUpdates(page) {
-    // const res = await this.request(`?m=airing&page=${page}`);
-    try {
-      const res = await this.request(`?m=airing&page=${page}`);
-      //   const document = new Document(res);
-      //   const isDdos = document.selectFirst("title").text;
-      //   console.log(isDdos);
-      //   if(isDdos === "DDoS-Guard"){
-      //   }
-      const resData = JSON.parse(res);
-      const list = [];
-      const hasNext = resData.current_page < resData.last_page;
-      for (const item of resData.data) {
-        const id = item.id;
-        const name = item.anime.title;
-        const imageUrl = item.snapshot;
-        // const link = item.anime_session.toString();
-        const link = `/anime/?anime_id=${id}&name=${name}`;
-        const artist = item.anime.fansub;
-        list.push({ name, imageUrl, link, artist });
-      }
-      return {
-        list: list,
-        hasNextPage: hasNext,
-        success: true,
-      };
-    } catch (e) {
-      const anime = [
-        {
-          title: "error",
-          url: "/",
-          cover: null,
-        },
-      ];
-      return {
-        list: anime,
-        hasNextPage: false,
-        success: false,
-        msg: "Please use webview to enter the website to bypass DDoS Protection then close the webview window.",
-      };
+    const res = await this.request(`?m=airing&page=${page}`);
+    //   if(isDdos === "DDoS-Guard"){
+    //   }
+    const resData = JSON.parse(res);
+    const list = [];
+    const hasNext = resData.current_page < resData.last_page;
+    for (const item of resData.data) {
+      const id = item.id;
+      const name = item.anime_title;
+      const imageUrl = item.snapshot;
+      // const link = item.anime_session.toString();
+      const link = `/anime/?anime_id=${id}&name=${name}`;
+      const artist = item.fansub;
+      list.push({ name, imageUrl, link, artist });
     }
+    return {
+      list: list,
+      hasNextPage: hasNext,
+    };
   }
+
   async search(query, page, filters) {
     const apiUrl = this.apiUrl;
     const res = (await new Client().get(`${apiUrl}?m=search&l=8&q=${query}`))
       .body;
-    const isDDos = this.checkIfDDos(res);
-    if (!isDDos) {
-      const jsonResult = JSON.parse(res);
-      const animeList = [];
-      for (const item of jsonResult.data) {
-        const name = item.title;
-        const imageUrl = item.poster;
-        const link = `/anime/?anime_id=${item.id}&name=${item.title}`;
-        animeList.push({ name, imageUrl, link });
-      }
-      return {
-        list: animeList,
-        hasNextPage: false,
-        success: true,
-      };
-    } else {
-      return {
-        list: [],
-        hasNextPage: false,
-        success: false,
-        msg: "Please use webview to enter the website to bypass DDoS Protection then close the webview window.",
-      };
+    const jsonResult = JSON.parse(res);
+    const animeList = [];
+    for (const item of jsonResult.data) {
+      const name = item.title;
+      const imageUrl = item.poster;
+      const link = `/anime/?anime_id=${item.id}&name=${item.title}`;
+      animeList.push({ name, imageUrl, link });
     }
+    return {
+      list: animeList,
+      hasNextPage: false,
+    };
   }
+
   async getDetail(url) {
-    const statusList = [{ "Currently Airing": 0, "Finished Airing": 1 }];
+    // const res = (await new Client().get(`${this.baseUrl}${url}`)).body;
+    const id = url.substringAfterLast("?anime_id=").substringBefore("&name=");
 
-    const res = (await new Client().get(`https://animepahe.ru/anime/${url}`))
-      .body;
-    const isDDos = this.checkIfDDos(res);
-    if (!isDDos) {
-      const id = this.substringBefore(
-        this.substringAfterLast(url, "?anime_id="),
-        "&name="
-      );
-      const nameData = this.substringAfterLast(url, "&name=");
-      const session = await this.getSession(nameData, id);
-      const baseUrl = this.baseUrl;
-      const apiUrl = this.apiUrl;
-      const res = (
-        await new Client().get(`${baseUrl}/anime/${session}?anime_id=${id}`)
-      ).body;
-      const document = new Document(res);
-      const statusRes = (
-        document.xpathFirst('//div/p[contains(text(),"Status:")]/text()') ?? ""
-      )
-        .replaceAll("Status:\n", "")
-        .trim();
-      const status = this.parseStatus(statusRes, statusList);
-      const name = document.selectFirst("div.title-wrapper > h1 > span").text;
-      const author = (
-        document.xpathFirst('//div/p[contains(text(),"Studio:")]/text()') ?? ""
-      )
-        .replaceAll("Studio:\n", "")
-        .trim();
-      const imageUrl = document.selectFirst("div.anime-poster a").attr("href");
-      const genre = xpath(
-        res,
-        '//*[contains(@class,"anime-genre")]/ul/li/text()'
-      );
-      const synonyms = (
-        document.xpathFirst('//div/p[contains(text(),"Synonyms:")]/text()') ??
-        ""
-      )
-        .replaceAll("Synonyms:\n", "")
-        .trim();
-      const description = document.selectFirst("div.anime-summary").text;
-      if (synonyms.isNotEmpty) {
-        anime.description += "\n\n$synonyms";
-      }
-      const epUrl = `${apiUrl}?m=release&id=${session}&sort=episode_desc&page=1`;
-      const resEp = (await client.get(Uri.parse(epUrl))).body;
-      const episodes = await this.recursivePages(epUrl, resEp, session);
-
-      //   const chapters = episodes;
-      return {
-        name: name,
-        imageUrl: imageUrl,
-        description: description,
-        author: author,
-        status: status,
-        genre: genre,
-        episodes: episodes,
-        success: true,
-      };
-    } else {
-      // DDos Triggered
-      return {
-        success: false,
-        msg: "Please use webview to enter the website to bypass DDoS Protection then close the webview window.",
-      };
+    const nameData = url.substringAfterLast("&name=");
+    const session = await this.getSession(nameData, id);
+    const baseUrl = this.baseUrl;
+    const apiUrl = this.apiUrl;
+    const res = (
+      await new Client().get(`${baseUrl}/anime/${session}?anime_id=${id}`)
+    ).body;
+    const document = new Document(res);
+    const statusRes = (
+      document.xpathFirst('//div/p[contains(text(),"Status:")]/text()') ?? ""
+    )
+      .replaceAll("Status:\n", "")
+      .trim();
+    const status = this.parseStatus(statusRes);
+    const name = document.selectFirst("div.title-wrapper > h1 > span").text;
+    const author = (
+      document.xpathFirst('//div/p[contains(text(),"Studio:")]/text()') ?? ""
+    )
+      .replaceAll("Studio:\n", "")
+      .trim();
+    const imageUrl = document.selectFirst("div.anime-poster a").attr("href");
+    const genre = document.xpath(
+      '//*[contains(@class,"anime-genre")]/ul/li/text()'
+    );
+    // const genre = document.xpath(
+    //   '//*[@class="anime-genre font-weight-bold"]/ul/li/a/text()'
+    // );
+    const synonyms = (
+      document.xpathFirst('//div/p[contains(text(),"Synonyms:")]/text()') ?? ""
+    )
+      .replaceAll("Synonyms:\n", "")
+      .trim();
+    let description = document.selectFirst("div.anime-summary").text;
+    if (synonyms) {
+      description += `\n\n${synonyms}`;
     }
+
+    const epUrl = `${apiUrl}?m=release&id=${session}&sort=episode_desc&page=1`;
+    const resEp = (await new Client().get(epUrl)).body;
+    const episodes = await this.recursivePages(epUrl, resEp, session);
+
+    //   const chapters = episodes;
+    return {
+      name: name,
+      imageUrl: imageUrl,
+      description: description,
+      author: author,
+      status: status,
+      genre: genre,
+      chapters: episodes,
+    };
   }
 
   async recursivePages(url, res, session) {
@@ -208,8 +165,8 @@ class DefaultExtension extends KProvider {
     for (const item of jsonResult.data) {
       const name = `Episode ${item.episode}`;
       const url = `/play/${session}/${item.session}`;
-      const dateUpload = this.parseDates(
-        item.created_at,
+      const dateUpload = parseDates(
+        [item.created_at],
         "yyyy-MM-dd HH:mm:ss",
         "en"
       )[0];
@@ -236,13 +193,10 @@ class DefaultExtension extends KProvider {
         `${this.extension.baseUrl}/api?m=search&q=${title}`
       )
     ).body;
-    return this.substringBefore(
-      this.substringAfter(
-        this.substringAfter(res, '"id":$animeId'),
-        '"session":"'
-      ),
-      '"'
-    );
+    return res
+      .substringAfter('"id":$animeId')
+      .substringAfter('"session":"')
+      .substringBefore('"');
   }
   // For anime episode video list
   async getVideoList(url) {
@@ -290,5 +244,14 @@ class DefaultExtension extends KProvider {
         },
       },
     ];
+  }
+
+  parseStatus(string) {
+    switch (string) {
+      case "Currently Airing":
+        return 0;
+      case "Finished Airing":
+        return 1;
+    }
   }
 }
