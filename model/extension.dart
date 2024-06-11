@@ -39,8 +39,6 @@ class Extension {
 
   bool? isActive;
 
-  bool? isObsolete;
-
   Extension({
     this.id = null,
     this.name = "",
@@ -62,7 +60,6 @@ class Extension {
     this.additionalParams = "",
     this.extensionCodeLanguage = 0,
     this.isActive = true,
-    this.isObsolete = false,
   });
 
   Extension.fromJson(Map<String, dynamic> json) {
@@ -90,7 +87,7 @@ class Extension {
     additionalParams = json['additionalParams'] ?? "";
     extensionCodeLanguage = extensionCodeLang;
     isActive = json['isActive'];
-    isObsolete = json['isObsolete'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -115,7 +112,6 @@ class Extension {
       "additionalParams": additionalParams,
       "extensionCodeLanguage": extensionCodeLanguage,
       "isActive": isActive,
-      "isObsolete": isObsolete,
     };
   }
 }
