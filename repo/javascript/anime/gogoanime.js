@@ -10,7 +10,7 @@ const extensionMetaInfo = [
       "sourceType": "single",
       "extensionType": 0,
       "isNsfw": false,
-      "version": "1.0.0",
+      "version": "1.1.0",
       "dateFormat": "",
       "dateFormatLocale": "",
       "pkgPath": "anime/gogoanime.js",
@@ -60,7 +60,7 @@ class DefaultExtension extends KProvider {
     if (this.baseUrl.toLowerCase().includes("gogo")) {
       url = url + `/?page=${page}`;
     } else {
-      url = url + `home.html?page=${page}`;
+      url = url + `/home.html?page=${page}`;
     }
     const res = (await new Client().get(url)).body;
     const document = new Document(res);
@@ -77,11 +77,79 @@ class DefaultExtension extends KProvider {
     return { list: animeList, hasNextPage: true };
   }
   async search(query, page, filters) {
-    throw new Error("search not implemented");
+    const url = this.baseUrl + `?keyword=${query}&page=${page}`;
+    const res = (await new Client().get(url)).body;
+    const document = new Document(res);
+    const animeList = [];
+    const urls = document.xpath('//*[@class="img"]/a/@href');
+    const names = document.xpath('//*[@class="img"]/a/@title');
+    const images = document.xpath('//*[@class="img"]/a/img/@src');
+    for (let i = 0; i < names.length; i++) {
+      animeList.push({ name: names[i], imageUrl: images[i], link: urls[i] });
+    }
+    return {
+      list: animeList,
+      hasNextPage: true,
+    };
   }
   async getDetail(url) {
-    throw new Error("getDetail not implemented");
+    const res = (await new Client().get(`${this.baseUrl}${url}`)).body;
+    // console.log(res);
+    const document = new Document(res);
+    const statusData = document
+      .xpathFirst('//*[@class="anime_info_body_bg"]/p[@class="type"][5]/text()')
+      .replaceAll("Status: ", "")
+      .trim();
+
+    const description =
+      document.selectFirst("div.anime_info_body_bg > div.description").text ??
+      "";
+    const status = this.parseStatus(statusData);
+    const genre = document
+      .xpathFirst('//*[@class="anime_info_body_bg"]/p[@class="type"][3]/text()')
+      .replaceAll("Genre: ", "")
+      .trim()
+      .split(",");
+
+    const id = document.xpathFirst('//*[@id="movie_id"]/@value');
+    const urlEp = `https://ajax.gogocdn.net/ajax/load-list-episode?ep_start=0&ep_end=4000&id=${id}`;
+    const resEp = (await new Client().get(urlEp)).body;
+    const episodeDocument = new Document(resEp);
+    const epUrls = episodeDocument.xpath(
+      '//*[@id="episode_related"]/li/a/@href'
+    );
+    const names = episodeDocument.xpath(
+      '//*[@id="episode_related"]/li/a/div[@class="name"]/text()'
+    );
+    const episodeNames = [];
+    for (const a of names) {
+      const extractedName = a.substringAfterLast(" ");
+      episodeNames.push(extractedName);
+    }
+    const episodesList = [];
+    for (let i = 0; i < episodeNames.length; i++) {
+      const name = episodeNames[i];
+      const url = epUrls[i];
+      episodesList.push({ name: name, url: url });
+    }
+    const chapters = episodesList;
+    return {
+      description: description,
+      status: status,
+      genre: genre,
+      chapters: chapters,
+    };
   }
+
+  parseStatus(string) {
+    switch (string) {
+      case "Ongoing":
+        return 0;
+      case "Completed":
+        return 1;
+    }
+  }
+
   // For anime episode video list
   async getVideoList(url) {
     throw new Error("getVideoList not implemented");
