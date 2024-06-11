@@ -10,7 +10,7 @@ const extensionMetaInfo = [
       "sourceType": "single",
       "extensionType": 0,
       "isNsfw": false,
-      "version": "1.2.0",
+      "version": "1.3.0",
       "dateFormat": "",
       "dateFormatLocale": "",
       "pkgPath": "anime/gogoanime.js",
