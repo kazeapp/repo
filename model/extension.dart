@@ -37,26 +37,33 @@ class Extension {
 
   int? extensionCodeLanguage;
 
-  Extension(
-      {this.id = null,
-      this.name = "",
-      this.baseUrl = "",
-      this.lang = "",
-      this.author = "",
-      this.sourceType = "",
-      this.iconUrl = "",
-      this.dateFormat = "",
-      this.dateFormatLocale = "",
-      this.isNsfw = false,
-      this.hasCloudflare = false,
-      this.pkgUrl = "",
-      this.apiUrl = "",
-      this.version = "",
-      this.extensionType = 0,
-      this.isFullData = false,
-      this.appMinVerReq = "0.1.0",
-      this.additionalParams = "",
-      this.extensionCodeLanguage = 0});
+  bool? isActive;
+
+  bool? isObsolete;
+
+  Extension({
+    this.id = null,
+    this.name = "",
+    this.baseUrl = "",
+    this.lang = "",
+    this.author = "",
+    this.sourceType = "",
+    this.iconUrl = "",
+    this.dateFormat = "",
+    this.dateFormatLocale = "",
+    this.isNsfw = false,
+    this.hasCloudflare = false,
+    this.pkgUrl = "",
+    this.apiUrl = "",
+    this.version = "",
+    this.extensionType = 0,
+    this.isFullData = false,
+    this.appMinVerReq = "0.1.0",
+    this.additionalParams = "",
+    this.extensionCodeLanguage = 0,
+    this.isActive = true,
+    this.isObsolete = false,
+  });
 
   Extension.fromJson(Map<String, dynamic> json) {
     final extensionCodeLang = json['extensionCodeLanguage'] ?? 0;
@@ -82,6 +89,8 @@ class Extension {
     version = json['version'] ?? "";
     additionalParams = json['additionalParams'] ?? "";
     extensionCodeLanguage = extensionCodeLang;
+    isActive = json['isActive'];
+    isObsolete = json['isObsolete'];
   }
 
   Map<String, dynamic> toJson() {
@@ -104,7 +113,9 @@ class Extension {
       "isFullData": isFullData,
       "appMinVerReq": appMinVerReq,
       "additionalParams": additionalParams,
-      "extensionCodeLanguage": extensionCodeLanguage
+      "extensionCodeLanguage": extensionCodeLanguage,
+      "isActive": isActive,
+      "isObsolete": isObsolete,
     };
   }
 }

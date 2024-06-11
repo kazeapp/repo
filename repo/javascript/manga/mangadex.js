@@ -26,8 +26,8 @@ class DefaultExtension extends KProvider {
     return (await new Client().get(apiUrl + body, { Referer: baseUrl })).body;
   }
 
-  supportsLatest() {
-    return true;
+  siteConfig() {
+    return { hasLatest: true, hasPopular: true, dateFormat: "" };
   }
 
   getHeaders(url) {
