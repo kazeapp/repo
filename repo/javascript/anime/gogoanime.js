@@ -14,7 +14,7 @@ const extensionMetaInfo = [
       "dateFormat": "",
       "dateFormatLocale": "",
       "pkgPath": "anime/gogoanime.js",
-      "isActive":true,
+      "isActive":true
     }
   ];
 
@@ -75,7 +75,6 @@ class DefaultExtension extends KProvider {
       animeList.push({ name, imageUrl, link });
     }
     return { list: animeList, hasNextPage: true };
-    
   }
   async search(query, page, filters) {
     throw new Error("search not implemented");
