@@ -10,7 +10,7 @@ const extensionMetaInfo = [
       "sourceType": "single",
       "extensionType": 0,
       "isNsfw": false,
-      "version": "1.1.0",
+      "version": "1.2.0",
       "dateFormat": "",
       "dateFormatLocale": "",
       "pkgPath": "anime/gogoanime.js",
@@ -94,7 +94,6 @@ class DefaultExtension extends KProvider {
   }
   async getDetail(url) {
     const res = (await new Client().get(`${this.baseUrl}${url}`)).body;
-    // console.log(res);
     const document = new Document(res);
     const statusData = document
       .xpathFirst('//*[@class="anime_info_body_bg"]/p[@class="type"][5]/text()')
@@ -124,7 +123,7 @@ class DefaultExtension extends KProvider {
     const episodeNames = [];
     for (const a of names) {
       const extractedName = a.substringAfterLast(" ");
-      episodeNames.push(extractedName);
+      episodeNames.push(`Episode ${extractedName}`);
     }
     const episodesList = [];
     for (let i = 0; i < episodeNames.length; i++) {
@@ -163,9 +162,27 @@ class DefaultExtension extends KProvider {
     const videos = [];
     const hosterSelection = this.preferenceHosterSelection();
     for (let i = 0; i < serverNames.length; i++) {
-        const name = serverNames[i];
-        const url = serverUrls[i];
+      const name = serverNames[i];
+      const url = serverUrls[i];
+      let a = [];
+      if (hosterSelection.some((element) => name === element)) {
+        if (name.includes("anime")) {
+          a = await gogoCdnExtractor(url);
+        } else if (name.includes("vidcdn")) {
+          a = await gogoCdnExtractor(url);
+        } else if (name.includes("doodstream")) {
+          a = await doodExtractor(url);
+        } else if (name.includes("mp4upload")) {
+          a = await mp4UploadExtractor(url, null, "", "");
+        } else if (name.includes("filelions")) {
+          a = await streamWishExtractor(url, "FileLions");
+        } else if (name.includes("streamwish")) {
+          a = await streamWishExtractor(url, "StreamWish");
+        }
+        videos.push(...a);
+      }
     }
+    return this.sortVideos(videos);
   }
 
   preferenceHosterSelection() {
@@ -173,10 +190,29 @@ class DefaultExtension extends KProvider {
     const hosters = preferences.get("hoster_selection");
     return hosters;
   }
-  // For manga chapter pages
-  async getPageList() {
-    throw new Error("getPageList not implemented");
+  getPreferenceValue(key) {
+    const preferences = new SharedPreferences();
+    const value = preferences.get(key);
+    return value;
   }
+  sortVideos(videos) {
+    const quality = this.getPreferenceValue("preferred_quality");
+    const hoster = this.getPreferenceValue("preferred_hoster");
+
+    videos.sort((a, b) => {
+      let qualityMatchA = 0;
+      if (a.quality.includes(hoster) && a.quality.includes(quality)) {
+        qualityMatchA = 1;
+      }
+      let qualityMatchB = 0;
+      if (b.quality.includes(hoster) && b.quality.includes(quality)) {
+        qualityMatchB = 1;
+      }
+      return qualityMatchB - qualityMatchA;
+    });
+    return videos;
+  }
+
   getFilterList() {
     throw new Error("getFilterList not implemented");
   }
