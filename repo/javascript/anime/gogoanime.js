@@ -152,7 +152,26 @@ class DefaultExtension extends KProvider {
 
   // For anime episode video list
   async getVideoList(url) {
-    throw new Error("getVideoList not implemented");
+    const res = (await new Client().get(`${this.baseUrl}${url}`)).body;
+    const document = new Document(res);
+    const serverUrls = document.xpath(
+      '//*[@class="anime_muti_link"]/ul/li/a/@data-video'
+    );
+    const serverNames = document.xpath(
+      '//*[@class="anime_muti_link"]/ul/li/@class'
+    );
+    const videos = [];
+    const hosterSelection = this.preferenceHosterSelection();
+    for (let i = 0; i < serverNames.length; i++) {
+        const name = serverNames[i];
+        const url = serverUrls[i];
+    }
+  }
+
+  preferenceHosterSelection() {
+    const preferences = new SharedPreferences();
+    const hosters = preferences.get("hoster_selection");
+    return hosters;
   }
   // For manga chapter pages
   async getPageList() {
@@ -215,6 +234,37 @@ class DefaultExtension extends KProvider {
             "Doodstream",
             "StreamWish",
             "FileLions",
+          ],
+        },
+      },
+      {
+        key: "hoster_selection",
+        multiSelectListPreference: {
+          title: "Enable/Disable video hosts",
+          summary: "",
+          entries: [
+            "Gogostream",
+            "Vidstreaming",
+            "Mp4upload",
+            "Doodstream",
+            "StreamWish",
+            "FileLions",
+          ],
+          entryValues: [
+            "vidcdn",
+            "anime",
+            "mp4upload",
+            "doodstream",
+            "streamwish",
+            "filelions",
+          ],
+          values: [
+            "vidcdn",
+            "anime",
+            "mp4upload",
+            "doodstream",
+            "streamwish",
+            "filelions",
           ],
         },
       },
