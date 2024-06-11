@@ -14,7 +14,7 @@ const extensionMetaInfo = [
       "dateFormat": "",
       "dateFormatLocale": "",
       "pkgPath": "anime/gogoanime.js",
-      "isActive":true
+      "isActive": true
     }
   ];
 

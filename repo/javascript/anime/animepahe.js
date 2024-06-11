@@ -14,7 +14,8 @@ const extensionMetaInfo = [
       "version": "1.0.0",
       "dateFormat": "",
       "dateFormatLocale": "",
-      "pkgPath": "anime/animepahe.js"
+      "pkgPath": "anime/animepahe.js",
+      "isActive": true
     }
   ];
 

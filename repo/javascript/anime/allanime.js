@@ -14,7 +14,8 @@ const extensionMetaInfo = [
     "version": "0.0.1",
     "dateFormat": "",
     "dateFormatLocale": "",
-    "pkgPath": "anime/allanime.js"
+    "pkgPath": "anime/allanime.js",
+    "isActive": true
   }
 ];
 

@@ -14,10 +14,10 @@ const extensionMetaInfo = [
       "version": "1.3.0",
       "dateFormat": "",
       "dateFormatLocale": "en_Us",
-      "pkgPath": "manga/mangadex.js"
+      "pkgPath": "manga/mangadex.js",
+      "isActive": true
     }
   ];
-
 
 class DefaultExtension extends KProvider {
   async request(body) {
