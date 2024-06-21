@@ -1,16 +1,16 @@
 // prettier-ignore
 const extensionMetaInfo = [
     {
-      "name": "${extension.name}",
-      "lang": "${extension.lang}",
+      "name": "",
+      "lang": "",
       "author": "Kaze",
-      "baseUrl": "${extension.baseUrl}",
-      "apiUrl": "${extension.apiUrl}",
-      "iconUrl":"${extension.iconUrl}",
-      "sourceType": "${extension.sourceType}",,
-      "extensionType": ${extension.extensionType.index},
-      "isNsfw": ${extension.isNsfw},
-      "version": "${extension.version}",
+      "baseUrl": "",
+      "apiUrl": "",
+      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/en.gogoanime.png",
+      "sourceType": "single",
+      "extensionType": ,
+      "isNsfw": ,
+      "version": "1.0.0",
       "dateFormat": "",
       "dateFormatLocale": "",
       "pkgPath": ""
@@ -20,14 +20,20 @@ const extensionMetaInfo = [
   class DefaultExtension extends KProvider {
 
     async request(body) {
-        const apiUrl = this.source.apiUrl;
-        const baseUrl = this.source.baseUrl;
+        const apiUrl = this.extension.apiUrl;
+        const baseUrl = this.extension.baseUrl;
         return (await new Client().get(apiUrl + body, { Referer: baseUrl })).body;
       }
 
-      supportsLatest() {
-            return true;
-      }
+    siteConfig() {
+        return {
+        hasLatest: true,
+        hasPopular: true,
+        hasTVLatest: true,
+        hasTVPopular: true,
+        dateFormat: "",
+        };
+    }
       
       getHeaders(url) {
           throw new Error("getHeaders not implemented");
