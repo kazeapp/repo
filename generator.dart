@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'model/extension.dart';
+import 'repo/dart/manga/manga_extension_list.dart';
 
 void main() {
   final jsExtensions = _searchJsExtensions(Directory("repo/javascript"));
@@ -40,10 +41,11 @@ List<Map<String, dynamic>> genAnime(List<Extension> jsAnimesourceList) {
 
 List<Map<String, dynamic>> genManga(List<Extension> jsMangasourceList) {
   List<Extension> mangaSources = [];
-  // mangaSources.addAll(dartMangasourceList);
+  mangaSources.addAll(dartMangaExtensionList);
   mangaSources.addAll(jsMangasourceList);
   final List<Map<String, dynamic>> jsonList =
       mangaSources.map((source) => source.toJson()).toList();
+      
   // final jsonString = jsonEncode(jsonList);
   return jsonList;
 }
