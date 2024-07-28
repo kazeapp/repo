@@ -1,4 +1,4 @@
-class Madara extends KProvider {
+class DefaultExtension extends KProvider {
   // constructor(name, baseUrl, lang) {
   //   this.name = name;
   //   this.baseUrl = baseUrl;
