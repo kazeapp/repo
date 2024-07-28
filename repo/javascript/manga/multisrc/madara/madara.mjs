@@ -22,7 +22,7 @@ class DefaultExtension extends KProvider {
       )
     ).body;
     const document = new Document(res);
-    return mangaFromElements(document.select("div.page-item-detail"));
+    return this.mangaFromElements(document.select("div.page-item-detail"));
   }
 
   async getLatestUpdates(page) {
@@ -32,7 +32,7 @@ class DefaultExtension extends KProvider {
       )
     ).body;
     const document = new Document(res);
-    return mangaFromElements(document.select("div.page-item-detail"));
+    return this.mangaFromElements(document.select("div.page-item-detail"));
   }
 
   async search(query, page, filters) {
@@ -73,6 +73,6 @@ class DefaultExtension extends KProvider {
       const link = postTitle.href;
       mangaList.push({ name, imageUrl, link });
     }
-    return MPages(mangaList, true);
+    return { list: mangaList, hasNextPage: true };
   }
 }
