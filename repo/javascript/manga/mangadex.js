@@ -21,8 +21,8 @@ const extensionMetaInfo = [
 
 class DefaultExtension extends KProvider {
   async request(body) {
-    const apiUrl = this.source.apiUrl;
-    const baseUrl = this.source.baseUrl;
+    const apiUrl = this.extension.apiUrl;
+    const baseUrl = this.extension.baseUrl;
     return (await new Client().get(apiUrl + body, { Referer: baseUrl })).body;
   }
 
