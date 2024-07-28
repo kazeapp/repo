@@ -59,34 +59,60 @@ List<Map<String, dynamic>> genMovie(List<Extension> jsMoviesourceList) {
   return jsonList;
 }
 
+// List<Extension> _searchJsExtensions(Directory dir) {
+//   List<Extension> extensionList = [];
+//   List<FileSystemEntity> entities = dir.listSync(recursive: true);
+//   for (FileSystemEntity entity in entities) {
+//     if (entity is Directory) {
+//       List<FileSystemEntity> entities = entity.listSync(recursive: true);
+//       for (FileSystemEntity entity in entities) {
+//         if (entity is Directory) {
+//           extensionList.addAll(_searchJsExtensions(entity));
+//         } else if (entity is File && entity.path.endsWith('.js')) {
+//           final RegExp regex = RegExp(
+//               r'const\s+extensionMetaInfo\s*=\s*(\[.*?\]);',
+//               dotAll: true);
+//           final defaultSource = Extension();
+//           Match? match = regex.firstMatch(entity.readAsStringSync());
+//           if (match != null) {
+//             // log('Match: ${jsonDecode(match.group(1)!)}');
+//             extensionList.addAll((jsonDecode(match.group(1)!) as List)
+//                 .map((e) => Extension.fromJson(e)
+//                   ..extensionCodeLanguage = 1
+//                   ..appMinVerReq = defaultSource.appMinVerReq
+//                   ..pkgUrl =
+//                       "https://raw.githubusercontent.com/kazeapp/repo/$branchName/repo/javascript/${e["pkgPath"] ?? e["pkgName"]}")
+//                 .toList());
+//           }
+//         }
+//       }
+//     }
+//   }
+//   return extensionList;
+// }
+
 List<Extension> _searchJsExtensions(Directory dir) {
   List<Extension> extensionList = [];
-  List<FileSystemEntity> entities = dir.listSync();
+  List<FileSystemEntity> entities = dir.listSync(recursive: true);
+  
   for (FileSystemEntity entity in entities) {
-    if (entity is Directory) {
-      List<FileSystemEntity> entities = entity.listSync();
-      for (FileSystemEntity entity in entities) {
-        if (entity is Directory) {
-          extensionList.addAll(_searchJsExtensions(entity));
-        } else if (entity is File && entity.path.endsWith('.js')) {
-          final RegExp regex = RegExp(
-              r'const\s+extensionMetaInfo\s*=\s*(\[.*?\]);',
-              dotAll: true);
-          final defaultSource = Extension();
-          Match? match = regex.firstMatch(entity.readAsStringSync());
-          if (match != null) {
-            // log('Match: ${jsonDecode(match.group(1)!)}');
-            extensionList.addAll((jsonDecode(match.group(1)!) as List)
-                .map((e) => Extension.fromJson(e)
-                  ..extensionCodeLanguage = 1
-                  ..appMinVerReq = defaultSource.appMinVerReq
-                  ..pkgUrl =
-                      "https://raw.githubusercontent.com/kazeapp/repo/$branchName/repo/javascript/${e["pkgPath"] ?? e["pkgName"]}")
-                .toList());
-          }
-        }
+    if (entity is File && entity.path.endsWith('.js')) {
+      final RegExp regex = RegExp(
+          r'const\s+extensionMetaInfo\s*=\s*(\[.*?\]);',
+          dotAll: true);
+      final defaultSource = Extension();
+      Match? match = regex.firstMatch(entity.readAsStringSync());
+      if (match != null) {
+        extensionList.addAll((jsonDecode(match.group(1)!) as List)
+            .map((e) => Extension.fromJson(e)
+              ..extensionCodeLanguage = 1
+              ..appMinVerReq = defaultSource.appMinVerReq
+              ..pkgUrl =
+                  "https://raw.githubusercontent.com/kazeapp/repo/$branchName/repo/javascript/${e["pkgPath"] ?? e["pkgName"]}")
+            .toList());
       }
     }
   }
+  
   return extensionList;
 }
