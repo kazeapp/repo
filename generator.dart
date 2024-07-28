@@ -44,7 +44,7 @@ List<Map<String, dynamic>> genManga(List<Extension> jsMangasourceList) {
   mangaSources.addAll(jsMangasourceList);
   final List<Map<String, dynamic>> jsonList =
       mangaSources.map((source) => source.toJson()).toList();
-      
+
   // final jsonString = jsonEncode(jsonList);
   return jsonList;
 }
@@ -94,12 +94,11 @@ List<Map<String, dynamic>> genMovie(List<Extension> jsMoviesourceList) {
 List<Extension> _searchJsExtensions(Directory dir) {
   List<Extension> extensionList = [];
   List<FileSystemEntity> entities = dir.listSync(recursive: true);
-  
+
   for (FileSystemEntity entity in entities) {
     if (entity is File && entity.path.endsWith('.js')) {
-      final RegExp regex = RegExp(
-          r'const\s+extensionMetaInfo\s*=\s*(\[.*?\]);',
-          dotAll: true);
+      final RegExp regex =
+          RegExp(r'const\s+extensionMetaInfo\s*=\s*(\[.*?\]);', dotAll: true);
       final defaultSource = Extension();
       Match? match = regex.firstMatch(entity.readAsStringSync());
       if (match != null) {
@@ -108,11 +107,11 @@ List<Extension> _searchJsExtensions(Directory dir) {
               ..extensionCodeLanguage = 1
               ..appMinVerReq = defaultSource.appMinVerReq
               ..pkgUrl =
-                  "https://raw.githubusercontent.com/kazeapp/repo/$branchName/repo/javascript/${e["pkgPath"] ?? e["pkgName"]}")
+                  "https://raw.githubusercontent.com/kazeapp/repo/$branchName/javascript/${e["pkgPath"] ?? e["pkgName"]}")
             .toList());
       }
     }
   }
-  
+
   return extensionList;
 }
