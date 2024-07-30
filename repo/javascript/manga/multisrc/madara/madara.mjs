@@ -1,10 +1,4 @@
 class DefaultExtension extends KProvider {
-  // constructor(name, baseUrl, lang) {
-  //   this.name = name;
-  //   this.baseUrl = baseUrl;
-  //   this.lang = lang;
-  // }
-
   siteConfig() {
     return {
       hasLatest: true,
@@ -31,13 +25,10 @@ class DefaultExtension extends KProvider {
 
   async getPopular(page) {
     const checkSite = this.extraSiteCheck();
-    // const checkSite = false;
-
     let url = `${this.extension.baseUrl}/manga/page/${page}/?m_orderby=views`;
     if (checkSite) {
       url = `${this.extension.baseUrl}/webtoons/page/${page}/?m_orderby=views`;
     }
-    console.log(url);
     const res = (await new Client().get(url)).body;
     // webtoons
     const document = new Document(res);
@@ -46,11 +37,12 @@ class DefaultExtension extends KProvider {
 
   async getLatestUpdates(page) {
     const checkSite = this.extraSiteCheck();
-    const url =
-      `${this.extension.baseUrl}/` + checkSite
-        ? "webtoons"
-        : "manga" + `/page/${page}/?m_orderby=latest`;
+    let url = `${this.extension.baseUrl}/manga/page/${page}/?m_orderby=latest`;
+    if (checkSite) {
+      url = `${this.extension.baseUrl}/webtoons/page/${page}/?m_orderby=views`;
+    }
     const res = (await new Client().get(url)).body;
+
     const document = new Document(res);
     return this.mangaFromElements(document.select("div.page-item-detail"));
   }
