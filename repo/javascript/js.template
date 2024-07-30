@@ -1,4 +1,5 @@
 // prettier-ignore
+//  0=>"ongoing", 1=>"completed", 2=>"hiatus", 3=>"canceled", 4=>"publishingFinished",  5=>"unknown"
 const extensionMetaInfo = [
     {
       "name": "",
