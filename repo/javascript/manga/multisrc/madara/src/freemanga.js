@@ -1,12 +1,12 @@
 // prettier-ignore
 const extensionMetaInfo = [
     {
-      "name": "HiperDex",
+      "name": "Free Manga",
       "lang": "en",
       "author": "Kaze",
-      "baseUrl": "https://hiperdex.com",
+      "baseUrl": "https://freemanga.me",
       "apiUrl": "",
-      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/en.hiperdex.png",
+      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/freemanga.png",
       "sourceType": "madara",
       "extensionType": 1,
       "isNsfw": true,

@@ -1,17 +1,17 @@
 // prettier-ignore
 const extensionMetaInfo = [
     {
-      "name": "HiperDex",
+      "name": "Manga18fx",
       "lang": "en",
       "author": "Kaze",
-      "baseUrl": "https://hiperdex.com",
+      "baseUrl": "https://manga18fx.com",
       "apiUrl": "",
-      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/en.hiperdex.png",
+      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/manga18fx.png",
       "sourceType": "madara",
       "extensionType": 1,
       "isNsfw": true,
       "version": "1.0.0",
-      "dateFormat": "MMMM dd, yyyy",
+      "dateFormat": "dd MMM yy",
       "dateFormatLocale": "en_US",
       "pkgPath": "manga/multisrc/madara/madara.mjs"
     }

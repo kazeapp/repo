@@ -1,17 +1,17 @@
 // prettier-ignore
 const extensionMetaInfo = [
     {
-      "name": "HiperDex",
+      "name": "The Blank Scanlation",
       "lang": "en",
       "author": "Kaze",
-      "baseUrl": "https://hiperdex.com",
+      "baseUrl": "https://theblank.net",
       "apiUrl": "",
-      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/en.hiperdex.png",
+      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/theblank.png",
       "sourceType": "madara",
       "extensionType": 1,
       "isNsfw": true,
       "version": "1.0.0",
-      "dateFormat": "MMMM dd, yyyy",
+      "dateFormat": "dd/MM/yy",
       "dateFormatLocale": "en_US",
       "pkgPath": "manga/multisrc/madara/madara.mjs"
     }

@@ -1,18 +1,18 @@
 // prettier-ignore
 const extensionMetaInfo = [
     {
-      "name": "Toonily",
-      "lang": "en",
+      "name": "عرب تونز",
+      "lang": "ar",
       "author": "Kaze",
-      "baseUrl": "https://toonily.com",
+      "baseUrl": "https://arabtoons.net",
       "apiUrl": "",
-      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/toonily.png",
+      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/arabtoon.png",
       "sourceType": "madara",
       "extensionType": 1,
       "isNsfw": true,
       "version": "1.0.0",
-      "dateFormat": "MMMM dd, yyyy",
-      "dateFormatLocale": "en_US",
+      "dateFormat": "MMM d",
+      "dateFormatLocale": "ar",
       "pkgPath": "manga/multisrc/madara/madara.mjs"
     }
   ];

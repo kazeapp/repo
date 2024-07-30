@@ -1,12 +1,12 @@
 // prettier-ignore
 const extensionMetaInfo = [
     {
-      "name": "HiperDex",
+      "name": "Adult Webtoon",
       "lang": "en",
       "author": "Kaze",
-      "baseUrl": "https://hiperdex.com",
+      "baseUrl": "https://adultwebtoon.com",
       "apiUrl": "",
-      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/en.hiperdex.png",
+      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/adultwebtoon.png",
       "sourceType": "madara",
       "extensionType": 1,
       "isNsfw": true,
