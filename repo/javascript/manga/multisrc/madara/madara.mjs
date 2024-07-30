@@ -135,22 +135,16 @@ class DefaultExtension extends KProvider {
     const pageElement = document.selectFirst(
       "div.read-container .reading-content"
     );
-    const imgs = pageElement.select("img").map(
-      (e) =>
-        e.attr("src") ??
-        e.attr("data-src") ??
-        e.attr("data-lazy-src") ??
-        e.attr("srcset")
-
-      // this.getAttributeValue(e, "src") ??
-      //   this.getAttributeValue(e, "data-src") ??
-      //   this.getAttributeValue(e, "data-lazy-src") ??
-      //   this.getAttributeValue(e, "srcset");
-    );
-    for (const vvv of imgs) {
-      console.log(`value::: ${vvv}`);
-    }
-    console.log(imgs.length);
+    const imgs = pageElement
+      .select("img")
+      .map(
+        (e) =>
+          this.getAttributeValue(e, "src") ??
+          this.getAttributeValue(e, "data-src") ??
+          this.getAttributeValue(e, "data-lazy-src") ??
+          this.getAttributeValue(e, "srcset")
+      );
+    // console.log(imgs.length);
     let pageUrls = [];
     if (imgs.length == 1) {
       const pagesNumber = document
