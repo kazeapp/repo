@@ -1,3 +1,22 @@
+// prettier-ignore
+const extensionMetaInfo = [
+    {
+      "name": "Manhua18.cc",
+      "lang": "all",
+      "author": "Kaze",
+      "baseUrl": "https://manhwa18.cc",
+      "apiUrl": "",
+      "iconUrl":"https://raw.githubusercontent.com/kazeapp/repo/main/repo/javascript/icon/manhua18cc.png",
+      "sourceType": "madara",
+      "extensionType": 1,
+      "isNsfw": true,
+      "version": "1.5.0",
+      "dateFormat": "dd MMM yyyy",
+      "dateFormatLocale": "en_US",
+      "pkgPath": "manga/manhua18cc.js"
+    }
+  ];
+
 class DefaultExtension extends KProvider {
   siteConfig() {
     return {
@@ -9,58 +28,48 @@ class DefaultExtension extends KProvider {
     };
   }
 
-  extraSiteCheck() {
-    const sites = ["toonily", "manhwa18.cc"];
-    const baseUrl = this.extension.baseUrl;
-    if (
-      sites.some(function (v) {
-        return baseUrl.indexOf(v) > -1;
-      })
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  modifyUrl(page, orderBy) {
-    const baseUrl = this.extension.baseUrl;
-    switch (baseUrl) {
-      case "https://toonily.com":
-        return `${this.extension.baseUrl}/webtoons/page/${page}/?m_orderby=${orderBy}`;
-      case "https://manhwa18.cc":
-        return `${this.extension.baseUrl}/webtoons/${page}?orderby=${orderBy}`;
-      default:
-        return `${baseUrl}/manga/page/${page}/?m_orderby=${orderBy}`;
-    }
-  }
-
   async getPopular(page) {
-    const url = this.modifyUrl(page, "views");
+    const url = `${this.extension.baseUrl}/webtoons/${page}?orderby=trending`;
     const res = (await new Client().get(url)).body;
     // webtoons
     const document = new Document(res);
-    return this.mangaFromElements(document.select("div.page-item-detail"));
+    const hasNext = document.selectFirst("ul.pagination li.next a")?.text
+      ? true
+      : false;
+    // const hasNext = hasNextData;
+    return this.mangaFromElements(
+      document.select("div.list-block div.manga-lists div.manga-item"),
+      hasNext
+    );
   }
 
   async getLatestUpdates(page) {
-    const url = this.modifyUrl(page, "latest");
+    const url = `${this.extension.baseUrl}/webtoons/${page}?orderby=latest`;
     const res = (await new Client().get(url)).body;
 
     const document = new Document(res);
-    return this.mangaFromElements(document.select("div.page-item-detail"));
+    const hasNext = document.selectFirst("ul.pagination li.next a")?.text
+      ? true
+      : false;
+    return this.mangaFromElements(
+      document.select("div.list-block div.manga-lists div.manga-item"),
+      hasNext
+    );
   }
 
   async search(query, page, filters) {
     throw new Error("search not implemented");
   }
+
   async getDetail(url) {
+    url = url.replace(/\/?$/, "/");
     let res = (await new Client().get(url)).body;
     const document = new Document(res);
     const author = document.selectFirst("div.author-content > a")?.text ?? "";
+
     const description =
       document.selectFirst(
-        "div.description-summary div.summary__content, div.summary_content div.post-content_item > h5 + div, div.summary_content div.manga-excerpt, div.sinopsis div.contenedor, .description-summary > p"
+        "div.panel-story-description p, div.description-summary div.summary__content, div.summary_content div.post-content_item > h5 + div, div.summary_content div.manga-excerpt, div.sinopsis div.contenedor, .description-summary > p"
       )?.text ?? "";
 
     let imageUrl = "";
@@ -83,43 +92,21 @@ class DefaultExtension extends KProvider {
         imageUrl = image;
       }
     }
-    const id =
-      document.selectFirst("div[id^=manga-chapters-holder]")?.attr("data-id") ??
-      "";
+
+    const chaptersWrapper = document.selectFirst(
+      "div[id^=manga-chapters-holder]"
+    );
+    const id = chaptersWrapper?.attr("data-id") ?? "";
     let mangaId = "";
     if (id) {
       mangaId = id;
     }
     const statusText =
       document.select("div.post-status div.summary-content")[1]?.text ?? "";
-    console.log(statusText.trim());
     const status = this.parseStatus(statusText.trim());
-    console.log(status);
     const genre =
       document.select("div.genres-content a")?.map((e) => e.text) ?? [];
-
-    const baseUrl = `${this.extension.baseUrl}/`;
-    const headers = { Referer: baseUrl, "X-Requested-With": "XMLHttpRequest" };
-    const oldXhrChaptersRequest = await new Client().post(
-      `${baseUrl}wp-admin/admin-ajax.php`,
-      headers,
-      { action: "manga_get_chapters", manga: mangaId }
-    );
-
-    if (oldXhrChaptersRequest.statusCode == 400) {
-      res = (await new Client().post(`${url}ajax/chapters`, headers)).body;
-    } else {
-      res = oldXhrChaptersRequest.body;
-    }
-    let chapDoc = new Document(res);
-    let chapters = this.getChapters(chapDoc);
-    if (chapters.isEmpty()) {
-      res = (await new Client().post(`${url}ajax/chapters`, headers)).body;
-
-      chapDoc = new Document(res);
-      chapters = this.getChapters(chapDoc);
-    }
-
+    let chapters = this.getChapters(document);
     return {
       author: author,
       description: description,
@@ -136,9 +123,7 @@ class DefaultExtension extends KProvider {
   async getPageList(url) {
     const res = (await new Client().get(url)).body;
     const document = new Document(res);
-    const pageElement = document.selectFirst(
-      "div.read-container .reading-content"
-    );
+    const pageElement = document.selectFirst("div.read-content");
     const imgs = pageElement
       .select("img")
       .map(
@@ -180,26 +165,20 @@ class DefaultExtension extends KProvider {
     throw new Error("getExtensionPreferences not implemented");
   }
 
-  mangaFromElements(elements) {
+  mangaFromElements(elements, hasNext) {
     let mangaList = [];
-
     for (const element of elements) {
-      const postTitle = element.selectFirst("div.post-title a");
+      const postTitle = element.selectFirst("div.data a");
       const imageElement = element.selectFirst("img");
-      const image =
-        this.getAttributeValue(imageElement, "data-src") ??
-        this.getAttributeValue(imageElement, "data-lazy-src") ??
-        this.getAttributeValue(imageElement, "srcset") ??
-        this.getAttributeValue(imageElement, "src") ??
-        "";
+      const imageUrl = imageElement.attr("src");
       const name = postTitle.text;
-      const imageUrl = image.substringBefore(" ");
-      const link = postTitle.attr("href");
+      const linkData = postTitle.attr("href");
+      const link = `${this.extension.baseUrl}${linkData}`;
 
       // console.log(imageUrl + ` and ${image}`);
       mangaList.push({ name, imageUrl, link });
     }
-    return { list: mangaList, hasNextPage: true };
+    return { list: mangaList, hasNextPage: hasNext };
   }
 
   getAttributeValue(element, attribute) {
@@ -210,7 +189,7 @@ class DefaultExtension extends KProvider {
   getChapters(chapDoc) {
     let chapters = [];
 
-    for (const element of chapDoc.select("li.wp-manga-chapter") ?? []) {
+    for (const element of chapDoc.select("li.a-h") ?? []) {
       const ch = element.selectFirst("a");
       if (ch) {
         let url = ch.attr("href");
@@ -219,12 +198,12 @@ class DefaultExtension extends KProvider {
           if (url.endsWith("?style=paged")) {
             url = url + "?style=paged";
           }
-          url = url;
+          url = `${this.extension.baseUrl}${url}`;
 
           let dateUpload;
           const chapName = ch.text.trim();
           if (this.extension.dateFormat) {
-            var chd = element.selectFirst("span.chapter-release-date");
+            var chd = element.selectFirst("span.chapter-time");
             if (chd && chd.text.trim()) {
               const dates = parseDates(
                 [chd.text.trim()],
